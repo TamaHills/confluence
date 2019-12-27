@@ -41,8 +41,10 @@ export const Provider = ({
     // state is not shared by providers
     let [state, dispatch] = useReducer(reducer, initialState);
 
-    // Wrap dipsatch to easily invert the control for async creators.
+
+    // Wrap dipsatch to easily invert the control for async creators. 
     let dispatchWrapper = (action: Action) => {
+        // Catches async creators
         if (typeof action === 'function') {
             action(dispatch);
         } else {
@@ -57,6 +59,7 @@ export const Provider = ({
     `;
 };
 
+// Helper function to wrap the action creators for props
 let wrapActions = (
     actions: ActionsObject,
     dispatch: dispatchFn,
@@ -73,12 +76,17 @@ let wrapActions = (
     return wrappedActions;
 };
 
+
+// HOC for connecting components to context
 export const connect = (selector: selectorFn, actions: ActionsObject) => (
     component: (props: any) => VNode<{}>,
 ) => () => html`
     <${ctx.Consumer}>
         ${({ state, dispatch }: ProviderContext) => {
+            // Get state from selector function
             let selectedState = selector(state);
+
+            // Wrap actions to attach comtext
             let wrappedActions = wrapActions(actions, dispatch);
 
             return html`

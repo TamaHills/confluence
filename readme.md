@@ -77,3 +77,7 @@ render(
     document.getElementById('mount') || document.body,
 );
 ```
+
+## TODO:
+- Document
+- MiddleWare

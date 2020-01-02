@@ -9,9 +9,12 @@
     "preact": "^10.1.1"
   },
   "devDependencies": {
+    "parcel": "^1.12.4",
     "typescript": "^3.8.0-dev.20191224"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "demo": "parcel demo.html",
+    "clean": "rm -rf .cache dist"
   }
 }

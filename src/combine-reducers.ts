@@ -11,7 +11,7 @@ export const combineReducers = (reducers: ReducerObject): reducerFn => {
                     ? reducers[key](state[key], action)
                     : reducers[key](undefined, {}),
             }),
-            {},
+            { __reducer__metadata__: () => ({ __composite__reducer__: true })},
         );
     };
 

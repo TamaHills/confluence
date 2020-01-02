@@ -23,7 +23,7 @@ const reducer = (state: any = { count: 0 }, action: any) => {
 const delayIncrement = (count: number) => (dispatch: any) => {
     let factor = count / 10;
     dispatch({ type: 'increment_delay' });
-    setTimeout(() => dispatch({ type: 'increment' }), count * factor * 100); // 10n^2
+    setTimeout(() => dispatch({ type: 'increment' }), count * factor * 100); /* = 10n^2 */
 };
 
 const store = createStore(reducer);

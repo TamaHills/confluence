@@ -5,10 +5,10 @@
   "main": "build/index.js",
   "repository": "https://github.com/TamaHills/confluence.git",
   "dependencies": {
-    "htm": "^2.2.1",
     "preact": "^10.1.1"
   },
   "devDependencies": {
+    "htm": "^2.2.1",
     "parcel": "^1.12.4",
     "typescript": "^3.8.0-dev.20191224"
   },

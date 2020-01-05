@@ -12,7 +12,7 @@
     "sourceMap": true,
     "sourceRoot": "./src",
     "experimentalDecorators": true,
-    "lib": ["esnext", "DOM"]
+    "lib": ["esnext", "DOM"],
   },
   "include": ["src/"]
 }

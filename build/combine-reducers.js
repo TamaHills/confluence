@@ -10,7 +10,10 @@ exports.combineReducers = function (reducerObject) {
         // map reducer entries to state entries [key, state]
         var stateEntries = reducers.map(function (_a) {
             var key = _a[0], reducer = _a[1];
-            return [key, reducer(state, action)];
+            return [
+                key,
+                reducer(state === null || state === void 0 ? void 0 : state[key], action),
+            ];
         });
         // create & return a state object from the state entries
         return Object.fromEntries(stateEntries);

@@ -1,12 +1,8 @@
 "use strict";
-var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var preact_1 = require("htm/preact");
-var context_1 = require("./context");
+var preact_1 = require("preact");
 var hooks_1 = require("preact/hooks");
+var context_1 = require("./context");
 exports.useStore = function (_a) {
     var reducer = _a.reducer, initialState = _a.initialState, middleware = _a.middleware;
     // this is where the state lives
@@ -52,8 +48,7 @@ exports.useStore = function (_a) {
 exports.Provider = function (_a) {
     var children = _a.children, store = _a.store;
     // state is not shared between providers
-    var context = exports.useStore(store);
-    return preact_1.html(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n        <!-- Wrap the children in a context provider -->\n        <", " value=", ">", "<//>\n    "], ["\n        <!-- Wrap the children in a context provider -->\n        <", " value=", ">", "<//>\n    "])), context_1.ctx.Provider, context, children);
+    var value = exports.useStore(store);
+    return preact_1.h(context_1.ctx.Provider, { value: value, children: children });
 };
-var templateObject_1;
 //# sourceMappingURL=provider.js.map

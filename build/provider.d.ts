@@ -7,5 +7,5 @@ interface ProviderProps {
     children: [];
     store: Store;
 }
-export declare const Provider: ({ children, store }: ProviderProps) => import("preact").VNode<{}>;
+export declare const Provider: ({ children, store }: ProviderProps) => import("preact").VNode<any>;
 export {};

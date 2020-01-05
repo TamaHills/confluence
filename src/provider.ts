@@ -1,8 +1,8 @@
-import { html } from 'htm/preact';
-import { ctx } from './context';
+import { h } from 'preact'
 import { useState } from 'preact/hooks';
 import { Action, Store, MiddlewareContext } from './types';
 
+import { ctx } from './context';
 export const useStore = ({ reducer, initialState, middleware }: Store) => {
     // this is where the state lives
     let [state, setState] = useState(initialState);
@@ -53,10 +53,7 @@ interface ProviderProps {
 // Provider component
 export const Provider = ({ children, store }: ProviderProps) => {
     // state is not shared between providers
-    const context = useStore(store);
+    const value = useStore(store);
 
-    return html`
-        <!-- Wrap the children in a context provider -->
-        <${ctx.Provider} value=${context}>${children}<//>
-    `;
+    return h(ctx.Provider, {value, children})
 };

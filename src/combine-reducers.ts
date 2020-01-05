@@ -9,8 +9,9 @@ export const combineReducers = (reducerObject: ReducerObject): ReducerFn => {
         // map reducer entries to state entries [key, state]
         let stateEntries = reducers.map(([key, reducer]): [string, any] => [
             key,
-            reducer(state, action),
+            reducer(state?.[key], action),
         ]);
+
         // create & return a state object from the state entries
         return Object.fromEntries(stateEntries);
     };

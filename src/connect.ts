@@ -1,5 +1,4 @@
-import { html } from 'htm/preact';
-import { FunctionComponent } from 'preact';
+import { h, FunctionComponent, VNode } from 'preact';
 import {
     ProviderContext,
     ActionsObject,
@@ -33,20 +32,20 @@ let wrapActions = (
 export const connect = (
     selector: SelectorFn = state => ({ state }),
     actions: ActionsObject = {},
-) => (component: FunctionComponent) => () => html`
-    <${Consumer}>
-        ${({ state, dispatch }: ProviderContext) => {
+) => (component: FunctionComponent) => () => {
+    return h(Consumer, {
+        children: ({ state, dispatch }: ProviderContext): VNode<{}> => {
             // Get state from selector function
             let selectedState = selector(state);
 
             // Wrap actions to attach context
             let wrappedActions = wrapActions(actions, dispatch);
 
-            return html`
-                <${component}
-                    ...${{ ...selectedState, ...wrappedActions, dispatch }}
-                />
-            `;
-        }}
-    <//>
-`;
+            return h(component, {
+                ...selectedState,
+                ...wrappedActions,
+                dispatch,
+            });
+        },
+    });
+};

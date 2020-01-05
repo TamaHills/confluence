@@ -1,5 +1,5 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.__esModule = true;
 var hooks_1 = require("preact/hooks");
 var context_1 = require("./context");
 /* Hooks */

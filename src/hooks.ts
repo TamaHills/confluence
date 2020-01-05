@@ -1,11 +1,11 @@
 import { useContext } from 'preact/hooks';
 import { ctx } from './context'
-import { selectorFn } from './types'
+import { SelectorFn } from './types'
 
 /* Hooks */
 
 // State
-export const useSelector = (select: selectorFn) => {
+export const useSelector = (select: SelectorFn) => {
     // Grab state from context provider
     let { state } = useContext(ctx);
 

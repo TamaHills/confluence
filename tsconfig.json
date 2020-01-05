@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es3",
     "module": "commonjs",
     "declaration": true,
     "strict": true,
@@ -8,9 +8,11 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "esModuleInterop": true,
-    "outDir": "./dist",
+    "outDir": "./build",
     "sourceMap": true,
     "sourceRoot": "./src",
     "experimentalDecorators": true,
-  }
+    "lib": ["esnext", "DOM"]
+  },
+  "include": ["src/"]
 }

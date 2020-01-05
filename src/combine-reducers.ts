@@ -1,18 +1,15 @@
-import { ReducerObject, reducerFn } from './types';
+import { ReducerObject, ReducerFn } from './types';
 
-export const combineReducers = (reducers: ReducerObject): reducerFn => {
-    let reducerKeys = Object.keys(reducers);
+export const combineReducers = (reducers: ReducerObject): ReducerFn => {
+    let reducerEntries = Object.entries(reducers);
 
-    let reducer: reducerFn = (state, action) => {
-        return reducerKeys.reduce(
-            (acc, key) => ({
-                ...acc,
-                [key]: state
-                    ? reducers[key](state[key], action)
-                    : reducers[key](undefined, {}),
-            }),
-            { __reducer__metadata__: () => ({ __composite__reducer__: true })},
-        );
+    let reducer: ReducerFn = (state, action) => {
+        let reducerResults = reducerEntries.map(([key, reducerFn]):[string, any] => [
+            key,
+            state ? reducerFn(state[key], action) : reducerFn(undefined, {}),
+        ]);
+        
+        return Object.fromEntries(reducerResults);
     };
 
     return reducer;

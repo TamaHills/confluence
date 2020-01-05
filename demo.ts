@@ -1,3 +1,4 @@
+
 import { html, render } from 'htm/preact';
 import {
     Provider,
@@ -5,7 +6,10 @@ import {
     useDispatch,
     useSelector,
     connect,
-} from './src';
+    combineReducers
+} from './build';
+
+import { logger } from './build/logger';
 
 // Reducer Function
 const reducer = (state: any = { count: 0 }, action: any) => {
@@ -23,14 +27,20 @@ const reducer = (state: any = { count: 0 }, action: any) => {
 const delayIncrement = (count: number) => (dispatch: any) => {
     let factor = count / 10;
     dispatch({ type: 'increment_delay' });
-    setTimeout(() => dispatch({ type: 'increment' }), count * factor * 100); /* = 10n^2 */
+    setTimeout(
+        () => dispatch({ type: 'increment' }),
+        count * factor * 100,
+    ); /* = 10n^2 */
 };
 
-const store = createStore(reducer);
+let newreducer = combineReducers({ counter: reducer })
+
+const store = createStore(newreducer, logger);
 
 // Hooks component
 const Counter = () => {
-    let state = useSelector(state => state);
+    let state = useSelector(state => ( state.counter ));
+    console.log(state)
     let dispatch = useDispatch();
     let handleIncrement = () =>
         !state.waiting && dispatch({ type: 'increment' });
@@ -47,24 +57,24 @@ const Counter = () => {
     `;
 };
 
-// HOC Component
-const CounterConnect = connect(state => ({ state }), {
-    delayIncrement,
-})(({ state, dispatch, delayIncrement }: any) => {
-    let handleIncrement = () =>
-        !state.waiting && dispatch({ type: 'increment' });
-    let handleIncrementDelay = () =>
-        !state.waiting && delayIncrement(state.count);
-    return html`
-        ${state.count}
-        <button onclick=${handleIncrement}>
-            ${state.waiting ? 'wait...' : '+1'}
-        </button>
-        <button onclick=${handleIncrementDelay}>
-            ${state.waiting ? 'wait...' : '+1 w/ delay'}
-        </button>
-    `;
-});
+// HOC Version
+const CounterConnect = connect(state => ({ state: state.counter }), { delayIncrement })(
+    ({ state, dispatch, delayIncrement }: any) => {
+        let handleIncrement = () =>
+            !state.waiting && dispatch({ type: 'increment' });
+        let handleIncrementDelay = () =>
+            !state.waiting && delayIncrement(state.count);
+        return html`
+            ${state.count}
+            <button onclick=${handleIncrement}>
+                ${state.waiting ? 'wait...' : '+1'}
+            </button>
+            <button onclick=${handleIncrementDelay}>
+                ${state.waiting ? 'wait...' : '+1 w/ delay'}
+            </button>
+        `;
+    },
+);
 
 const App = () => {
     return html`

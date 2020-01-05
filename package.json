@@ -2,7 +2,7 @@
   "name": "preact-confluence",
   "version": "0.2.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "build/index.js",
   "repository": "https://github.com/TamaHills/confluence.git",
   "dependencies": {
     "htm": "^2.2.1",
@@ -14,7 +14,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "demo": "parcel demo.html",
-    "clean": "rm -rf .cache dist"
+    "demo": "parcel ./demo/demo.html",
+    "clean": "rm -rf .cache dist build"
   }
 }

@@ -1,6 +1,6 @@
 {
-  "name": "preact-confluence",
-  "version": "0.2.0",
+  "name": "subatomic-store",
+  "version": "0.2.1",
   "license": "MIT",
   "main": "build/index.js",
   "repository": "https://github.com/TamaHills/confluence.git",

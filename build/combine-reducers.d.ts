@@ -1,2 +1,2 @@
 import { ReducerObject, ReducerFn } from './types';
-export declare const combineReducers: (reducers: ReducerObject) => ReducerFn;
+export declare const combineReducers: (reducerObject: ReducerObject) => ReducerFn;

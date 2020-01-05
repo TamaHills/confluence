@@ -3,7 +3,7 @@ var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cook
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var preact_1 = require("htm/preact");
 var context_1 = require("./context");
 var hooks_1 = require("preact/hooks");
@@ -35,7 +35,7 @@ exports.useStore = function (_a) {
                             newState: newState,
                             prevState: prevState,
                             action: action,
-                            reducer: reducer
+                            reducer: reducer,
                         };
                         return mw(ctx);
                     }, newState_1);

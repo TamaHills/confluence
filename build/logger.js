@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 exports.logger = function (ctx) {
     console.log('previous state', ctx.prevState);
     console.log('dispatched action', ctx.action);

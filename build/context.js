@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var preact_1 = require("preact");
 /* Setup */
 // initial context object
@@ -7,7 +7,7 @@ exports.init = {
     state: undefined,
     dispatch: function (action) {
         action;
-    }
+    },
 };
 // initialize context object
 exports.ctx = preact_1.createContext(exports.init);

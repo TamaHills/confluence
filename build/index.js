@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var hooks_1 = require("./hooks");
 exports.useDispatch = hooks_1.useDispatch;
 exports.useSelector = hooks_1.useSelector;

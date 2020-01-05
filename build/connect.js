@@ -14,16 +14,17 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var preact_1 = require("htm/preact");
 var context_1 = require("./context");
-// Helper function to wrap the action creators to be used as props
+// Helper function to wrap action creators to be used as props
 var wrapActions = function (actions, dispatch) {
     if (actions === void 0) { actions = {}; }
-    var wrappedActions = Object.entries(actions).reduce(function (acc, _a) {
+    var actionEntries = Object.entries(actions);
+    var wrappedActions = actionEntries.reduce(function (acc, _a) {
         var _b;
         var actionName = _a[0], actionCreator = _a[1];
-        return (__assign(__assign({}, acc), (_b = {}, _b[actionName] = function () {
+        return (__assign({}, acc, (_b = {}, _b[actionName] = function () {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
                 args[_i] = arguments[_i];
@@ -45,7 +46,7 @@ exports.connect = function (selector, actions) {
         var selectedState = selector(state);
         // Wrap actions to attach context
         var wrappedActions = wrapActions(actions, dispatch);
-        return preact_1.html(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n                <", "\n                    ...", "\n                />\n            "], ["\n                <", "\n                    ...", "\n                />\n            "])), component, __assign(__assign(__assign({}, selectedState), wrappedActions), { dispatch: dispatch }));
+        return preact_1.html(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n                <", "\n                    ...", "\n                />\n            "], ["\n                <", "\n                    ...", "\n                />\n            "])), component, __assign({}, selectedState, wrappedActions, { dispatch: dispatch }));
     }); }; };
 };
 var templateObject_1, templateObject_2;

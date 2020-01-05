@@ -6,24 +6,25 @@ import {
     WrappedActionsObject,
     DispatchFn,
     SelectorFn,
-    CreatorFn
+    CreatorFn,
 } from './types';
 import { Consumer } from './context';
 
-// Helper function to wrap the action creators to be used as props
+// Helper function to wrap action creators to be used as props
 let wrapActions = (
     actions: ActionsObject = {},
     dispatch: DispatchFn,
 ): WrappedActionsObject => {
-    let wrappedActions = Object.entries(actions).reduce(
-        (acc: WrappedActionsObject, [actionName, actionCreator]:[any, CreatorFn]) => ({
+    let actionEntries: [string, CreatorFn][] = Object.entries(actions);
+    let wrappedActions = actionEntries.reduce(
+        (acc, [actionName, actionCreator]) => ({
             ...acc,
             [actionName]: (...args: any[]) => {
-                let action = actionCreator(...args)
+                let action = actionCreator(...args);
                 dispatch(action);
             },
         }),
-        {},
+        <WrappedActionsObject>{},
     );
     return wrappedActions;
 };

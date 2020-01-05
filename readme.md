@@ -1,6 +1,6 @@
 # preact-confluence
 
-Implements the flux pattern in preact with hooks and context
+Implements the flux/reducer pattern in preact with hooks and context
 
 
 ## TODO:

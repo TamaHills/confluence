@@ -1,8 +1,5 @@
-import { Action, Store } from './types';
-export declare const useStore: ({ reducer, initialState, middleware }: Store) => {
-    state: any;
-    dispatch: (action: Action) => void;
-};
+import { Store } from './types';
+export declare const useStore: ({ reducer, initialState, middleware }: Store) => any[];
 interface ProviderProps {
     children: [];
     store: Store;

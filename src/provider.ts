@@ -1,8 +1,34 @@
-import { h } from 'preact'
+import { h } from 'preact';
 import { useState } from 'preact/hooks';
-import { Action, Store, MiddlewareContext } from './types';
+import {
+    Action,
+    Store,
+    MiddlewareContext,
+    MiddlewareFn,
+    ReducerAction,
+    ReducerFn,
+} from './types';
 
 import { ctx } from './context';
+
+const middlewareReducer = (
+    reducer: ReducerFn,
+    middleware: MiddlewareFn[],
+    newState: any,
+    action: ReducerAction,
+) => {
+    return (prevState: any) =>
+        middleware.reduce((newState, mw) => {
+            let ctx: MiddlewareContext = {
+                newState,
+                prevState,
+                action,
+                reducer,
+            };
+            return mw(ctx);
+        }, newState);
+};
+
 export const useStore = ({ reducer, initialState, middleware }: Store) => {
     // this is where the state lives
     let [state, setState] = useState(initialState);
@@ -24,16 +50,7 @@ export const useStore = ({ reducer, initialState, middleware }: Store) => {
                 if no middleware is provided the updater will just resolve to the result of the reducer
             */
             let stateUpdate: any = middleware.length
-                ? (prevState: any) =>
-                      middleware.reduce((newState, mw) => {
-                          let ctx: MiddlewareContext = {
-                              newState,
-                              prevState,
-                              action,
-                              reducer,
-                          };
-                          return mw(ctx);
-                      }, newState)
+                ? middlewareReducer(reducer, middleware, newState, action)
                 : newState;
             // update the state
             setState(stateUpdate);
@@ -41,7 +58,7 @@ export const useStore = ({ reducer, initialState, middleware }: Store) => {
     };
 
     // Compose and return the context object
-    return { state, dispatch };
+    return [ state, dispatch ];
 };
 
 // component props
@@ -53,7 +70,7 @@ interface ProviderProps {
 // Provider component
 export const Provider = ({ children, store }: ProviderProps) => {
     // state is not shared between providers
-    const value = useStore(store);
+    let [ state, dispatch ] = useStore(store);
 
-    return h(ctx.Provider, {value, children})
+    return h(ctx.Provider, { value: { state, dispatch}, children });
 };

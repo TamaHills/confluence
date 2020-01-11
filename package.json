@@ -1,6 +1,6 @@
 {
   "name": "subatomic-store",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "license": "MIT",
   "main": "build/index.js",
   "repository": "https://github.com/TamaHills/confluence.git",
